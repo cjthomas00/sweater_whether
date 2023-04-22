@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Forecast API" do
   before :each do
-    get "api/v1/forecast?location=cincinnati,oh"
+    get "/api/v1/forecast?location=cincinnati,oh"
     @parsed_data = JSON.parse(response.body, symbolize_names: true)
   end
 
