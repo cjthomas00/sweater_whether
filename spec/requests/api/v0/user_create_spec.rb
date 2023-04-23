@@ -12,7 +12,6 @@ RSpec.describe "User Creation", :vcr do
        }
       post "/api/v0/users", params: @user_params, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
       parsed_data = JSON.parse(response.body, symbolize_names: true)
-      
       expect(response.status).to eq(201)
       expect(parsed_data).to be_a(Hash)
       expect(parsed_data).to have_key(:data)
@@ -93,6 +92,7 @@ RSpec.describe "User Creation", :vcr do
          password_confirmation: "balone1"
          }
        }
+
       post "/api/v0/users", params: @user_params, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
       parsed_data = JSON.parse(response.body, symbolize_names: true)
       expect(response.status).to eq(401)
