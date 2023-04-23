@@ -13,11 +13,12 @@ RSpec.describe "User Creation", :vcr do
       post "/api/v0/users", params: @user_params, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
       parsed_data = JSON.parse(response.body, symbolize_names: true)
       expect(response.status).to eq(201)
+      expect(response.content_type).to eq("application/json; charset=utf-8")
       expect(parsed_data).to be_a(Hash)
       expect(parsed_data).to have_key(:data)
       expect(parsed_data[:data].keys).to eq([:id, :type, :attributes])
       expect(parsed_data[:data][:id]).to be_a(String)
-      expect(parsed_data[:data][:type]).to eq("user")
+      expect(parsed_data[:data][:type]).to eq("users")
       expect(parsed_data[:data][:attributes].keys).to eq([:email, :api_key])
       expect(parsed_data[:data][:attributes][:email]).to be_a(String)
       expect(parsed_data[:data][:attributes][:api_key]).to be_a(String)
@@ -38,6 +39,7 @@ RSpec.describe "User Creation", :vcr do
        }
       post "/api/v0/users", params: @user_params1, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
       expect(response.status).to eq(201)
+      expect(response.content_type).to eq("application/json; charset=utf-8")
       expect(User.count).to eq(1)
       @user_params2 = {
       user: {
@@ -49,6 +51,7 @@ RSpec.describe "User Creation", :vcr do
       post "/api/v0/users", params: @user_params2, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
       parsed_data = JSON.parse(response.body, symbolize_names: true)
       expect(response.status).to eq(401)
+      expect(response.content_type).to eq("application/json; charset=utf-8")
       expect(parsed_data[:error]).to eq("Email already exists")
       expect(User.count).to eq(1)
     end
@@ -65,6 +68,7 @@ RSpec.describe "User Creation", :vcr do
       parsed_data = JSON.parse(response.body, symbolize_names: true)
     
       expect(response.status).to eq(401)
+      expect(response.content_type).to eq("application/json; charset=utf-8")
       expect(parsed_data[:error]).to eq("Passwords do not match")
       expect(User.count).to eq(0)
     end
@@ -80,6 +84,7 @@ RSpec.describe "User Creation", :vcr do
       post "/api/v0/users", params: @user_params, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
       parsed_data = JSON.parse(response.body, symbolize_names: true)
       expect(response.status).to eq(401)
+      expect(response.content_type).to eq("application/json; charset=utf-8")
       expect(parsed_data[:error]).to eq("Password cannot be blank")
       expect(User.count).to eq(0)
     end
@@ -96,6 +101,7 @@ RSpec.describe "User Creation", :vcr do
       post "/api/v0/users", params: @user_params, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
       parsed_data = JSON.parse(response.body, symbolize_names: true)
       expect(response.status).to eq(401)
+      expect(response.content_type).to eq("application/json; charset=utf-8")
       expect(parsed_data[:error]).to eq("Email cannot be blank")
       expect(User.count).to eq(0)
     end
