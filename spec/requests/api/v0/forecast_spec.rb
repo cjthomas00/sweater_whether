@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Forecast API", :vcr do
   describe "when location is valid" do
     before :each do 
-      get "/api/v1/forecast?location=denver,co"
+      get "/api/v0/forecast?location=denver,co"
       @parsed_data = JSON.parse(response.body, symbolize_names: true)
     end
 
