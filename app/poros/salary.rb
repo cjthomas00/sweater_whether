@@ -13,6 +13,6 @@ include ActionView::Helpers::NumberHelper
   end
 
   def monetize(value)
-    value = number_to_currency(value, precision: 0)
+    value = number_to_currency(value, precision: 2)
   end
 end

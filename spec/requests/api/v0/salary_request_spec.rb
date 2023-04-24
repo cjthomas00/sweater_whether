@@ -10,7 +10,7 @@ RSpec.describe "Teleport Salary API", :vcr do
 
     it "returns data" do
       expect(response).to be_successful
-
+      
       expect(@parsed_data).to be_a(Hash)
       expect(@parsed_data).to have_key(:data)
       expect(@parsed_data[:data].keys).to eq([:id, :type, :attributes])
