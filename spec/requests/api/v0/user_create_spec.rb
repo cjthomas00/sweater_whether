@@ -4,11 +4,9 @@ RSpec.describe "User Creation", :vcr do
   describe "happy path" do
     it "can create a new user and return a 201 status code" do
       @user_params = {
-       user: {
          email: "email123@gmail.com",
          password: "baloney1",
          password_confirmation: "baloney1"
-         }
        }
       post "/api/v0/users", params: @user_params, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
       parsed_data = JSON.parse(response.body, symbolize_names: true)
@@ -31,11 +29,9 @@ RSpec.describe "User Creation", :vcr do
   describe "sad path" do
     it "returns a 401 status code if email already exists" do
       @user_params1 = {
-       user: {
          email: "email123@gmail.com",
          password: "baloney1",
          password_confirmation: "baloney1"
-         }
        }
       post "/api/v0/users", params: @user_params1, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
       expect(response.status).to eq(201)
@@ -58,12 +54,10 @@ RSpec.describe "User Creation", :vcr do
 
     it "returns a 401 status code if passwords don't match" do
       @user_params = {
-       user: {
-         email: "email123@gmail.com",
-         password: "baloney1",
-         password_confirmation: "baloney2"
-         }
-       }
+      email: "email123@gmail.com",
+      password: "baloney1",
+      password_confirmation: "baloney18"
+      }
       post "/api/v0/users", params: @user_params, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
       parsed_data = JSON.parse(response.body, symbolize_names: true)
     
@@ -75,11 +69,9 @@ RSpec.describe "User Creation", :vcr do
 
     it "returns a 401 status code if password is blank" do
       @user_params = {
-       user: {
          email: "email123@gmail.com",
          password: "",
          password_confirmation: ""
-         }
        }
       post "/api/v0/users", params: @user_params, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
       parsed_data = JSON.parse(response.body, symbolize_names: true)
@@ -91,11 +83,9 @@ RSpec.describe "User Creation", :vcr do
 
     it "returns a 401 status code if email is blank" do
       @user_params = {
-       user: {
          email: "",
-         password: "balone1",
-         password_confirmation: "balone1"
-         }
+         password: "baloney1",
+         password_confirmation: "baloney1"
        }
 
       post "/api/v0/users", params: @user_params, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
