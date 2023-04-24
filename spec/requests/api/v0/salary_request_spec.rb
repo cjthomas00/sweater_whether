@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Teleport Salary API", :vcr do
   describe "when location is valid" do
     before :each do
-      location = "denver,co"
+      location = "denver"
       get "/api/v0/salaries?destination=#{location}"
       @parsed_data = JSON.parse(response.body, symbolize_names: true)
     end

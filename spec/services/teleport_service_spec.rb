@@ -6,5 +6,10 @@ RSpec.describe TeleportService, :vcr do
       id = TeleportService.get_teleport_id("denver")
       expect(id).to be_a(Hash)
     end
+
+    it "get_salaries" do
+      salaries = TeleportService.get_salaries("denver")
+      expect(salaries).to be_a(Hash)
+    end
   end
 end
