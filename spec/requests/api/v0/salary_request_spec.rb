@@ -12,7 +12,17 @@ RSpec.describe "Teleport Salary API", :vcr do
       expect(response).to be_successful
 
       expect(@parsed_data).to be_a(Hash)
-      require 'pry'; binding.pry
+      expect(@parsed_data).to have_key(:data)
+      expect(@parsed_data[:data].keys).to eq([:id, :type, :attributes])
+      expect(@parsed_data[:data][:id]).to eq(nil)
+      expect(@parsed_data[:data][:type]).to eq("salaries")
+      expect(@parsed_data[:data][:attributes]).to be_a(Hash)
+      expect(@parsed_data[:data][:attributes].keys).to eq([:destination, :forecast, :salaries])
+      expect(@parsed_data[:data][:attributes][:salaries]).to be_a(Array)
+      expect(@parsed_data[:data][:attributes][:salaries].size).to eq(7)
+      @parsed_data[:data][:attributes][:salaries].each do |salary|
+        expect(salary.keys).to eq([:title, :min, :max])      
+      end
     end
   end
 end
