@@ -1,29 +1,30 @@
 class SalarySerializer
   def initialize(destination, data, weather)
-    @destination
-    require 'pry'; binding.pry
+    @destination = destination
     @data = data
     @weather = weather
   end
 
-  def combo_serializer
+  def salaries_serializer
       {
         data: {
           id: nil,
-          type: "salries",
+          type: "salaries",
           attributes: {
             destination: @destination,
              "forecast": {
               "summary": @weather[:condition],
-              "temperature": @weather[:temperature]
+              "temperature": @weather[:temperature].to_s + "F"
             },
             salaries: @data.map do |salary|
+              if salary.title.include?("Data Analyst") || salary.title.include?("Data Scientist") || salary.title.include?("Mobile Developer") || salary.title.include?("QA Engineer") || salary.title.include?("Software Engineer") || salary.title.include?("Systems Administrator") || salary.title.include?("Web Developer") 
               {
-                "job": salary[:job][:title],
-                "min_salary": salary[:salary_percentiles][:percentile_25].to_i,
-                "max_salary": salary[:salary_percentiles][:percentile_75].to_i
+                "title": salary.title,
+                "min": salary.min,
+                "max": salary.max
               }
-            end,
+            end
+          end.compact
           }
         }
       }

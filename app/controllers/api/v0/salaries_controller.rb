@@ -7,6 +7,5 @@ class Api::V0::SalariesController < ApplicationController
     weather = forecast.current_weather
     salaries = SalaryFacade.get_salaries(params[:destination])
     render json: SalarySerializer.new(name, salaries, weather).salaries_serializer
-    require 'pry'; binding.pry
   end
 end

@@ -2,7 +2,7 @@ class SalaryFacade
 
   def self.get_salaries(destination)
     salaries = TeleportService.get_salaries(destination)
-    salary = salaries[:salaries]
+    salaries[:salaries].map do |salary|
       Salary.new(salary)
     end
   end
