@@ -1,4 +1,7 @@
 class Salary
+require 'action_view'
+include ActionView::Helpers::NumberHelper
+
   attr_reader :title,
               :min,
               :max
@@ -10,6 +13,6 @@ class Salary
   end
 
   def monetize(value)
-    "$#{value}"
+    value = number_to_currency(value, precision: 0)
   end
 end
