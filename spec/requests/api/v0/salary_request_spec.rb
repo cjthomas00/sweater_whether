@@ -23,6 +23,10 @@ RSpec.describe "Teleport Salary API", :vcr do
       @parsed_data[:data][:attributes][:salaries].each do |salary|
         expect(salary.keys).to eq([:title, :min, :max])      
       end
+      job_titles = @parsed_data[:data][:attributes][:salaries].map do |salary|
+        salary[:title]
+      end
+      expect(job_titles).to eq(["Data Analyst", "Data Scientist", "Mobile Developer", "QA Engineer", "Software Engineer", "Systems Administrator", "Web Developer"])
     end
   end
 end
