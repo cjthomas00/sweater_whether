@@ -38,14 +38,27 @@ class Weather
     end
   end
 
+  # def parsed_hourly_weather(data)
+  #   data[:forecast][:forecastday].first[:hour].map do |hour|
+  #     {
+  #     time: readable_24_hour_time(hour[:time]),
+  #     temperature: hour[:temp_f],
+  #     conditions: hour[:condition][:text],
+  #     icon: hour[:condition][:icon]
+  #   }
+  #   end
+  # end
+
   def parsed_hourly_weather(data)
-    data[:forecast][:forecastday].first[:hour].map do |hour|
-      {
-      time: readable_24_hour_time(hour[:time]),
-      temperature: hour[:temp_f],
-      conditions: hour[:condition][:text],
-      icon: hour[:condition][:icon]
-      }
+    data[:forecast][:forecastday].map do |day|
+      day[:hour].map do |hour|
+        {
+        time: readable_24_hour_time(hour[:time]),
+        temperature: hour[:temp_f],
+        conditions: hour[:condition][:text],
+        icon: hour[:condition][:icon]
+        }
+      end
     end
   end
 

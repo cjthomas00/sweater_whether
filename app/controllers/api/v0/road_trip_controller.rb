@@ -1,4 +1,6 @@
 class Api::V0::RoadTripController < ApplicationController
+  before_action :check_values
+  
   def create
     user = User.find_by(api_key: params[:api_key])
     if user
@@ -8,4 +10,13 @@ class Api::V0::RoadTripController < ApplicationController
       render json: { error: "Unauthorized" }, status: 401
     end
   end
+
+  private
+
+  def check_values
+    if params[:origin].empty? || params[:destination].empty? || params[:api_key].empty?
+      render json: { error: "Missing Parameters, Unable to Process" }, status: 401
+    end
+  end
+
 end
