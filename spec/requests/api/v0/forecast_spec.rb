@@ -53,17 +53,19 @@ RSpec.describe "Forecast API", :vcr do
 
     # Hourly Weather
     it "returns hourly weather" do
-      expect(@parsed_data[:data][:attributes][:hourly_weather].size).to eq(24)
-      expect(@parsed_data[:data][:attributes][:hourly_weather].first.keys).to eq([:time, :temperature, :conditions, :icon])
-      expect(@parsed_data[:data][:attributes][:hourly_weather].first[:time]).to be_a(String)
-      expect(@parsed_data[:data][:attributes][:hourly_weather].first[:temperature]).to be_a(Float)
-      expect(@parsed_data[:data][:attributes][:hourly_weather].first[:conditions]).to be_a(String)
-      expect(@parsed_data[:data][:attributes][:hourly_weather].first[:icon]).to be_a(String)
-      expect(@parsed_data[:data][:attributes][:hourly_weather].first).to_not have_key(:date_epoch)
-      expect(@parsed_data[:data][:attributes][:hourly_weather].first).to_not have_key(:maxwind_kph)
-      expect(@parsed_data[:data][:attributes][:hourly_weather].first).to_not have_key(:cloud)
-      expect(@parsed_data[:data][:attributes][:hourly_weather].first).to_not have_key(:date_epoch)
-      expect(@parsed_data[:data][:attributes][:hourly_weather].first).to_not have_key(:maxwind_kph)
+      expect(@parsed_data[:data][:attributes][:hourly_weather].first.size).to eq(24)
+      @parsed_data[:data][:attributes][:hourly_weather].first.each do |hour|
+        expect(hour.keys).to eq([:time, :temperature, :conditions, :icon])
+        expect(hour[:time]).to be_a(String)
+        expect(hour[:temperature]).to be_a(Float)
+        expect(hour[:conditions]).to be_a(String)
+        expect(hour[:icon]).to be_a(String)
+        expect(hour).to_not have_key(:date_epoch)
+        expect(hour).to_not have_key(:maxwind_kph)
+        expect(hour).to_not have_key(:cloud)
+        expect(hour).to_not have_key(:date_epoch)
+        expect(hour).to_not have_key(:maxwind_kph)
+      end
     end
   end
 end

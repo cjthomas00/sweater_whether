@@ -30,13 +30,15 @@ class ForecastSerializer
               icon: day[:icon]
             }
             end,
-            hourly_weather: @data.hourly_weather.map do |hour|
-              { 
-              time: hour[:time],
-              temperature: hour[:temperature],
-              conditions: hour[:conditions],
-              icon: hour[:icon]
-            }
+            hourly_weather: @data.hourly_weather.map do |day|
+              day.map do |hour|
+                { 
+                time: hour[:time],
+                temperature: hour[:temperature],
+                conditions: hour[:conditions],
+                icon: hour[:icon]
+              }
+            end
           end
           }
         }
