@@ -2,7 +2,8 @@ class RoadtripService
   
   def self.get_road_trip(origin, destination)
     get_url("?key=#{ENV['MAPQUEST_API_KEY']}&from=#{origin}&to=#{destination}")
-
+  end
+  
   private 
 
   def self.conn 
