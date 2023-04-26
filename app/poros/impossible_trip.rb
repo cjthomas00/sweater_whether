@@ -10,10 +10,11 @@ class ImpossibleTrip
     @start_city = origin
     @end_city = destination
     if arrival_time != nil
-      @travel_time = "Arrival Time is greater than 5 days from now. An accurate forecast cannot be calculated."
+      @travel_time = "#{arrival_time} hours"
+      @weather_at_eta = "The current travel time will not allow for an accurate weather forecast."
     else
       @travel_time = "impossible"
+      @weather_at_eta = {}
     end
-    @weather_at_eta = {}
   end
 end

@@ -138,11 +138,12 @@ RSpec.describe "Road Trip Creation", :vcr do
       }
       post "/api/v0/road_trip", params: body, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
       
+      
       expect(response.status).to eq(201)
       expect(response.content_type).to eq("application/json; charset=utf-8")
       parsed_data = JSON.parse(response.body, symbolize_names: true)
-      expect(parsed_data[:data][:attributes][:travel_time]).to eq("Arrival Time is greater than 5 days from now. An accurate forecast cannot be calculated.")
-      expect(parsed_data[:data][:attributes][:weather_at_eta]).to eq({})
+      expect(parsed_data[:data][:attributes][:travel_time]).to eq("120 hours")
+      expect(parsed_data[:data][:attributes][:weather_at_eta]).to eq("The current travel time will not allow for an accurate weather forecast.")
     end
   end
 end
