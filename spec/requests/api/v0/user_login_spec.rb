@@ -24,7 +24,6 @@ RSpec.describe "User Login", :vcr do
        expect(response.content_type).to eq("application/json; charset=utf-8")
 
        parsed_data = JSON.parse(response.body, symbolize_names: true)
-
        expect(parsed_data).to be_a(Hash)
        expect(parsed_data).to have_key(:data)
        expect(parsed_data[:data].keys).to eq([:id, :type, :attributes])
