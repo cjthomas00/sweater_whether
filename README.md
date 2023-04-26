@@ -293,6 +293,23 @@ If the route is impossible to drive the return will look like this:
 }
 ```
 
+If the drive is going to be 5 days (120 hours) or longer the return will look like this:
+
+```
+{
+    "data": {
+        "id": null,
+        "type": "road_trip",
+        "attributes": {
+            "start_city": "Anchorage,AK",
+            "end_city": "Panama City, PA",
+            "travel_time": "120 hours",
+            "weather_at_eta": "The current travel time will not allow for an accurate weather forecast."
+        }
+    }
+}
+```
+
 ## Testing 
 
 The API is thoroughly tested using RSpec, ensuring that all features, edge cases, and sad paths are covered. To run the test suite, follow these steps:
