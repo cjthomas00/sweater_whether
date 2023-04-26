@@ -137,8 +137,6 @@ RSpec.describe "Road Trip Creation", :vcr do
       "api_key": "jgn983hy48thw9begh98h4539h4"
       }
       post "/api/v0/road_trip", params: body, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
-      
-      
       expect(response.status).to eq(201)
       expect(response.content_type).to eq("application/json; charset=utf-8")
       parsed_data = JSON.parse(response.body, symbolize_names: true)
