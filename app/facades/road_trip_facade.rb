@@ -4,6 +4,8 @@ class RoadTripFacade
     response = RoadtripService.get_road_trip(origin, destination)
     if response[:info][:statuscode] == 402
       return ImpossibleTrip.new(origin, destination)
+    elsif response[:route][:formattedTime].to_i >= 120
+      return ImpossibleTrip.new(origin, destination, formatted_time(response[:route][:formattedTime]))
     else
       arrival_time = formatted_time(response[:route][:formattedTime])
       future_cast = destination_weather(destination, arrival_time).compact.first
