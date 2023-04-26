@@ -9,6 +9,7 @@ RSpec.describe "User Creation", :vcr do
          password_confirmation: "baloney1"
        }
       post "/api/v0/users", params: @user_params, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
+      
       parsed_data = JSON.parse(response.body, symbolize_names: true)
       expect(response.status).to eq(201)
       expect(response.content_type).to eq("application/json; charset=utf-8")
@@ -20,7 +21,6 @@ RSpec.describe "User Creation", :vcr do
       expect(parsed_data[:data][:attributes].keys).to eq([:email, :api_key])
       expect(parsed_data[:data][:attributes][:email]).to be_a(String)
       expect(parsed_data[:data][:attributes][:api_key]).to be_a(String)
-
       expect(User.find_by(email: "email123@gmail.com")).to be_a(User)
       expect(User.find_by(email: "email123@gmail.com").authenticate("baloney1")).to be_a(User)
     end
@@ -37,6 +37,7 @@ RSpec.describe "User Creation", :vcr do
       expect(response.status).to eq(201)
       expect(response.content_type).to eq("application/json; charset=utf-8")
       expect(User.count).to eq(1)
+      
       @user_params2 = {
       user: {
         email: "email123@gmail.com",
@@ -45,6 +46,7 @@ RSpec.describe "User Creation", :vcr do
         }
       }
       post "/api/v0/users", params: @user_params2, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
+      
       parsed_data = JSON.parse(response.body, symbolize_names: true)
       expect(response.status).to eq(401)
       expect(response.content_type).to eq("application/json; charset=utf-8")
@@ -59,8 +61,8 @@ RSpec.describe "User Creation", :vcr do
       password_confirmation: "baloney18"
       }
       post "/api/v0/users", params: @user_params, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
-      parsed_data = JSON.parse(response.body, symbolize_names: true)
-    
+      
+      parsed_data = JSON.parse(response.body, symbolize_names: true)  
       expect(response.status).to eq(401)
       expect(response.content_type).to eq("application/json; charset=utf-8")
       expect(parsed_data[:error]).to eq("Passwords do not match")
@@ -74,6 +76,7 @@ RSpec.describe "User Creation", :vcr do
          password_confirmation: ""
        }
       post "/api/v0/users", params: @user_params, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
+      
       parsed_data = JSON.parse(response.body, symbolize_names: true)
       expect(response.status).to eq(401)
       expect(response.content_type).to eq("application/json; charset=utf-8")
@@ -89,6 +92,7 @@ RSpec.describe "User Creation", :vcr do
        }
 
       post "/api/v0/users", params: @user_params, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
+      
       parsed_data = JSON.parse(response.body, symbolize_names: true)
       expect(response.status).to eq(401)
       expect(response.content_type).to eq("application/json; charset=utf-8")

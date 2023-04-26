@@ -14,7 +14,6 @@ RSpec.describe "Road Trip Creation", :vcr do
       expect(response.content_type).to eq("application/json; charset=utf-8")
 
       parsed_data = JSON.parse(response.body, symbolize_names: true)
-
       expect(parsed_data).to be_a(Hash)
       expect(parsed_data[:data].keys).to eq([:id, :type, :attributes])
       expect(parsed_data[:data][:id]).to eq(nil)
@@ -37,10 +36,9 @@ RSpec.describe "Road Trip Creation", :vcr do
     }
     post "/api/v0/road_trip", params: body, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
     expect(response.status).to eq(201)
-    expect(response.content_type).to eq("application/json; charset=utf-8")
-    
-    parsed_data = JSON.parse(response.body, symbolize_names: true)
-  
+    expect(response.content_type).to eq("application/json; charset=utf-8") 
+
+    parsed_data = JSON.parse(response.body, symbolize_names: true)  
     expect(parsed_data).to be_a(Hash)
     expect(parsed_data[:data].keys).to eq([:id, :type, :attributes])
     expect(parsed_data[:data][:id]).to eq(nil)
@@ -64,6 +62,7 @@ RSpec.describe "Road Trip Creation", :vcr do
       post "/api/v0/road_trip", params: body, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
       expect(response.status).to eq(401)
       expect(response.content_type).to eq("application/json; charset=utf-8")
+
       parsed_data = JSON.parse(response.body, symbolize_names: true)
       expect(parsed_data[:error]).to eq("Unauthorized")
     end
@@ -78,6 +77,7 @@ RSpec.describe "Road Trip Creation", :vcr do
       post "/api/v0/road_trip", params: body, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
       expect(response.status).to eq(401)
       expect(response.content_type).to eq("application/json; charset=utf-8")
+
       parsed_data = JSON.parse(response.body, symbolize_names: true)
       expect(parsed_data[:error]).to eq("Missing Parameters, Unable to Process")
     end
@@ -92,6 +92,7 @@ RSpec.describe "Road Trip Creation", :vcr do
       post "/api/v0/road_trip", params: body, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
       expect(response.status).to eq(401)
       expect(response.content_type).to eq("application/json; charset=utf-8")
+
       parsed_data = JSON.parse(response.body, symbolize_names: true)
       expect(parsed_data[:error]).to eq("Missing Parameters, Unable to Process")
     end
@@ -106,6 +107,7 @@ RSpec.describe "Road Trip Creation", :vcr do
       post "/api/v0/road_trip", params: body, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
       expect(response.status).to eq(401)
       expect(response.content_type).to eq("application/json; charset=utf-8")
+      
       parsed_data = JSON.parse(response.body, symbolize_names: true)
       expect(parsed_data[:error]).to eq("Missing Parameters, Unable to Process")
     end
@@ -123,6 +125,7 @@ RSpec.describe "Road Trip Creation", :vcr do
       post "/api/v0/road_trip", params: body, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
       expect(response.status).to eq(201)
       expect(response.content_type).to eq("application/json; charset=utf-8")
+      
       parsed_data = JSON.parse(response.body, symbolize_names: true)
       expect(parsed_data[:data][:attributes][:travel_time]).to eq("impossible")
       expect(parsed_data[:data][:attributes][:weather_at_eta]).to eq({})
@@ -139,6 +142,7 @@ RSpec.describe "Road Trip Creation", :vcr do
       post "/api/v0/road_trip", params: body, headers: { "Content_Type" => "application/json", "Accept" => "application/json" }, as: :json
       expect(response.status).to eq(201)
       expect(response.content_type).to eq("application/json; charset=utf-8")
+      
       parsed_data = JSON.parse(response.body, symbolize_names: true)
       expect(parsed_data[:data][:attributes][:travel_time]).to eq("120 hours")
       expect(parsed_data[:data][:attributes][:weather_at_eta]).to eq("The current travel time will not allow for an accurate weather forecast.")

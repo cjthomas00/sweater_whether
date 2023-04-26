@@ -1,5 +1,6 @@
 class Api::V0::RoadTripController < ApplicationController
   before_action :check_values
+  wrap_parameters :user, include: [:email, :password, :password_confirmation]
   
   def create
     user = User.find_by(api_key: params[:api_key])
